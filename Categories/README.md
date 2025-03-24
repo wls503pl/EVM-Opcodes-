@@ -23,7 +23,7 @@ Opcodes can be divided into the following categories based on their functions:
 evm.codes provides a complete list of Opcodes, which includes each Opcode's number (e.g., ADD is 0x01), name, gas cost, stack inputs and outputs, and a short description.
 <br>
 
-![]()<br>
+![opcodeList](https://github.com/wls503pl/EVM-Opcodes-/blob/main/Categories/img/opcodeList.png)<br>
 
 2. Playground
 
@@ -31,7 +31,7 @@ evm.codes also provides an online Opcodes [playground](https://www.evm.codes/pla
 and the status interface in the lower right corner, which respectively display your code, the execution process of the code, and the execution results.
 <br>
 
-![]()<br>
+![playground](https://github.com/wls503pl/EVM-Opcodes-/blob/main/Categories/img/playground.png)<br>
 
 ## Example: 1+1
 
@@ -81,4 +81,4 @@ MSTORE
 You can verify the execution process and results in evm.codes.
 <br>
 
-![]()<br>
+![1add1](https://github.com/wls503pl/EVM-Opcodes-/blob/main/Categories/img/1add1.png)<br>
