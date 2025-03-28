@@ -97,7 +97,7 @@ You can also verify it on evm.codes (note to remove the 0x at the beginning of t
 
 <br>
 
-![]()<br>
+![6001](https://github.com/wls503pl/EVM-Opcodes-/blob/main/StackOperation/img/6001.png)<br>
 
 ## POP
 
@@ -159,7 +159,7 @@ You can also verify it on evm.codes (note to remove the 0x at the beginning of t
 
 <br>
 
-![]()<br>
+![pop](https://github.com/wls503pl/EVM-Opcodes-/blob/main/StackOperation/img/pop.png)<br>
 
 <hr>
 
