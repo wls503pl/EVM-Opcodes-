@@ -184,3 +184,65 @@ evm.run()
 print(evm.stack)
 # output: [16] (0x000000010 << 3 => 0x00010000)
 ```
+
+## SHR
+
+The SHR instruction performs a right shift operation, popping two elements from the stack, shifting the second element right by the number of bits of the first element, and then pushing the result back to the top of the stack. Its opcode is 0x1C and the gas cost is 3. We add the implementation of the SHR instruction to the EVM simulator:
+
+```
+def shr(self):
+    if len(self.stack) < 2:
+        raise Exception('Stack underflow')
+    a = self.stack.pop()
+    b = self.stack.pop()
+    self.stack.append(b >> a)      # Right shift operation
+```
+
+Add processing for the SHR instruction in the run() function:
+
+```
+elif op == SHR: # Process SHR instruction
+  self.shr()
+```
+
+Now, we can try to run a bytecode that contains an XOR instruction: 0x601060031C (PUSH1 16 PUSH1 3 SHL). This bytecode pushes 16 (0001 0000) and 3 (0000 0011) onto the stack, and then shifts 16 right by 3 bits, which should give us 2 (0000 0010).
+
+```
+code = b"\x60\x10\x60\x03\x1C"
+evm = EVM(code)
+evm.run()
+print(evm.stack)
+# output: [2] (00010000 >> 3 => 0x000000010)
+```
+
+## Other bit-level instructions
+
+1. **BYTE**: The BYTE instruction pops two elements (a and b) from the stack, treats the second element (b) as a 32-byte array, fills in 0s if there are not enough digits, and returns the byte at the ath index starting from the high bit in the byte array, that is, (b[31-a]), and pushes it into the stack. If index a is greater than or equal to 32, it returns 0, otherwise it returns b[31-a]. The opcode is 0x1a and the gas consumption is 3.
+
+```
+def byte_op(self):
+  if len(self.stack) < 2:
+    raise Exception('Stack underflow')
+  position = self.stack.pop()
+    value = self.stack.pop()
+  if position >= 32:
+    res = 0
+  else:
+    res = (value // pow(256, 31 - position)) & 0xFF
+  self.stack.append(res)
+```
+
+2. **SAR**: The SAR instruction performs an arithmetic right shift, similar to SHR, but takes the sign bit into account: if we perform an arithmetic right shift on a negative number, the leftmost (sign bit) is filled with F during the right shift to keep the negative value of the number. It pops two elements from the stack, shifts the second element right by the number of the first element with the sign bit filled, and then pushes the result back to the top of the stack. Its opcode is 0x1D and the gas cost is 3. Since Python's >> operator is already an arithmetic right shift, we can directly reuse the code of the shr function.
+
+```
+def sar(self):
+  if len(self.stack) < 2:
+    raise Exception('Stack underflow')
+  a = self.stack.pop()
+  b = self.stack.pop()
+    self.stack.append(b >> a)      # Right shift operation
+```
+
+# Summary
+
+In this chapter, we introduced 8 bit-level instructions in EVM and added support for them in the minimalist version of EVM. Exercises: Write the instruction form corresponding to 0x6002600160011B1B and give the stack status after running.
