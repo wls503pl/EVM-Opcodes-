@@ -9,6 +9,12 @@ The SHA3(offset, size) instruction takes two parameters from the stack, the star
 calculates the Keccak-256 hash of this data, and pushes the result (a 32-byte value) into the stack. Its opcode is 0x20, and the gas consumption is 30 + 6*byte length of the data + extended memory cost.<br>
 
 Python has built-in support for the Keccak (also known as SHA-3) algorithm since version 3.6. You can directly use sha3_256, sha3_512, etc. in the hashlib module.
+But we could also use below method.
+In Python, we can use the pysha3 library to implement keccak-256 hash calculation. First you need to install this library:
+
+```
+pip install pysha3
+```
 
 Next, let's support SHA3 instructions in the minimal EVM:
 
@@ -47,10 +53,6 @@ evm.run()
 print(hex(evm.stack[-1]))  # Prints out the keccak256 hash of 0
 # output: 0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470
 ```
-
-We can verify the result on evm.codes:
-
-![]()
 
 <hr>
 
