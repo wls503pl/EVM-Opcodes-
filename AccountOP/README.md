@@ -6,7 +6,7 @@ In this Chapter, we will explore four instructions related to accounts in EVM, i
 
 There are two types of accounts on Ethereum: Externally Owned Accounts (EOA) and Contract Accounts. EOAs are the user's representatives on the Ethereum network. They can own ETH, send transactions, and interact with contracts.
 Contract accounts are entities that store and execute smart contract codes. They can also own and send ETH, but cannot actively initiate transactions.
-![]()
+![account](https://github.com/wls503pl/EVM-Opcodes-/blob/main/AccountOP/img/account.png)
 
 The account structure on Ethereum is very simple. You can think of it as a mapping from address to account status. The account address is 20 bytes (160 bits) of data, which can be represented by 40 bits of hexadecimal,
 such as 0x9bbfed6889322e016e0a02ee459d306fc19545d8. The account status has four attributes:<br>
