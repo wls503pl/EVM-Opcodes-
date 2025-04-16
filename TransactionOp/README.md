@@ -4,7 +4,7 @@ In this Chapter, we will explore 4 instructions in EVM related to the transactio
 
 ## The basic structure of a transaction
 
-![]()
+![txStructure](https://github.com/wls503pl/EVM-Opcodes-/blob/main/TransactionOp/img/txStructure.png)
 
 Before we dive into these instructions, let's first understand the basic structure of an Ethereum transaction. Each Ethereum transaction has the following properties:
 
