@@ -62,3 +62,58 @@ def log(self, num_topics):
     }
     self.logs.append(log_entry)
 ```
+
+Finally, we need to add support for the different LOG instructions in the run method:
+
+```
+def run(self):
+    while self.pc < len(self.code):
+        op = self.next_instruction()
+        
+        # ... Processing of other instructions ...
+        
+        elif op == LOG0:
+            self.log(0)
+        elif op == LOG1:
+            self.log(1)
+        elif op == LOG2:
+            self.log(2)
+        elif op == LOG3:
+            self.log(3)
+        elif op == LOG4:
+            self.log(4)
+
+```
+
+## Test LOG0
+
+We run a bytecode containing the LOG0 instruction: 60aa6000526001601fa0 (PUSH1 aa PUSH1 0 MSTORE PUSH1 1 PUSH1 1f LOG0).
+This bytecode stores aa in memory and then uses the LOG0 instruction to output aa to the data portion of the log.
+
+```
+# LOG0
+code = b"\x60\xaa\x60\x00\x52\x60\x01\x60\x1f\xa0"
+evm = EVM(code, txn)
+evm.run()
+print(evm.logs)
+# output: [{'address': '0x9bbfed6889322e016e0a02ee459d306fc19545d8', 'data': 'aa', 'topics': []}]
+```
+
+## Test LOG1
+
+We run a bytecode containing the LOG1 instruction: 60aa60005260116001601fa1 (PUSH1 aa PUSH1 0 MSTORE PUSH 11 PUSH1 1 PUSH1 1f LOG1). This bytecode stores aa in memory, pushes 11 onto the stack, and finally uses the LOG1 instruction to output aa to the data portion of the log and 11 to the subject portion of the log.
+
+```
+# LOG1
+code = b"\x60\xaa\x60\x00\x52\x60\x11\x60\x01\x60\x1f\xa1"
+evm = EVM(code, txn)
+evm.run()
+print(evm.logs)
+# output: [{'address': '0x9bbfed6889322e016e0a02ee459d306fc19545d8', 'data': 'aa', 'topics': ['0x0000000000000000000000000000000000000000000000000000000000000011']}]
+```
+
+<hr>
+
+# Summary
+
+In this lesson, we learned 5 instructions related to logs and events in the EVM. These instructions play a key role in smart contract development, allowing developers to permanently record important information on the blockchain without affecting the state of the blockchain. So far, we have learned 131 out of 144 opcodes!
